@@ -25,6 +25,7 @@ class BookController extends Controller
         return response($new_book->getById($id));
     }
 
+
     public function book_review($book_id = null){
         $new_rw = new ReviewRepositories();
         return response($new_rw->getReviews($book_id));
@@ -34,15 +35,15 @@ class BookController extends Controller
         return response($new_rw->getReviews($book_id));
     }
 
-    public function book_type(){
-        $new_book = new BookRepositories();
-        return response($new_book->getType());
-    }
+    // public function book_type(){
+    //     $new_book = new BookRepositories();
+    //     return response($new_book->getType());
+    // }
 
-    public function book_author(){
-        $new_book = new BookRepositories();
-        return response($new_book->getAuthor());
-    }
+    // public function book_author(){
+    //     $new_book = new BookRepositories();
+    //     return response($new_book->getAuthor());
+    // }
     /**
      * Store a newly created resource in storage.
      *
@@ -87,4 +88,50 @@ class BookController extends Controller
     {
         //
     }
+
+// On sale / popular / Recommend
+
+    public function Top10BooksDiscount(){
+        $new_book = new BookRepositories();
+        return response($new_book->getTop10BooksDiscount());
+    }
+
+    public function Top8BooksPopular(){
+        $new_book = new BookRepositories();
+        return response($new_book->getTop8BooksPopular());
+    }
+
+    public function Top8BooksRecommend(){
+        $new_book = new BookRepositories();
+        return response($new_book->getTop8BooksRecommend());
+    }
+
+    // Sort by sale, popularity, price
+
+    public function sortBySale(){
+        $new_book = new BookRepositories();
+        return response($new_book->getSortBySale());
+    }
+
+    public function sortByReview(){
+        $new_book = new BookRepositories();
+        return response($new_book->getSortByReview());
+    }
+
+    public function sortByPriceDesc(){
+        $new_book = new BookRepositories();
+        return response($new_book->getSortByPriceDesc());
+    }
+
+    public function sortByPriceAsc(){
+        $new_book = new BookRepositories();
+        return response($new_book->getSortByPriceAsc());
+    }
+
+    public function finalprice(){
+        $new_book = new BookRepositories();
+        return response($new_book->getFinalPrice());
+    }
+
+
 }

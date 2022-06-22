@@ -12,7 +12,7 @@ class Discount extends Model
     public $timestamps = false;
     protected $table = 'discount';
 
-    public function Book()
+    public function book()
     {
         return $this->hasMany(Book::class, 'id',  'book_id');
     }
