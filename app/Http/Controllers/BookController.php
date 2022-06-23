@@ -35,15 +35,6 @@ class BookController extends Controller
         return response($new_rw->getReviews($book_id));
     }
 
-    // public function book_type(){
-    //     $new_book = new BookRepositories();
-    //     return response($new_book->getType());
-    // }
-
-    // public function book_author(){
-    //     $new_book = new BookRepositories();
-    //     return response($new_book->getAuthor());
-    // }
     /**
      * Store a newly created resource in storage.
      *
@@ -131,6 +122,11 @@ class BookController extends Controller
     public function finalprice(){
         $new_book = new BookRepositories();
         return response($new_book->getFinalPrice());
+    }
+
+    public function getfilter(){
+        $new_book = new BookRepositories();
+        return response($new_book->getFiltering());
     }
 
 
