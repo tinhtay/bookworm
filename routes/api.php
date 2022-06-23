@@ -41,6 +41,8 @@ Route::controller(BookController::class)->group(function(){
     Route::get('sortbypriceasc', 'sortByPriceAsc');
 
     Route::get('getfinalprice', 'finalprice');
+
+    Route::get('filtering' , 'getfilter');
 });
 
 
