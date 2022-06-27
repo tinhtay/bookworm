@@ -15,7 +15,7 @@ class ReviewRepositories {
     public function login(Request $request){
         $user = User::where('email', $request->email)->first();
         $password = md5($request->password);
-        if($user->password != $password){ // user not exist or incorrect password -- !$user || !Hash::check($request->password, $user->password, [])
+        if($user->password != $password){ //  !$user || !Hash::check($request->password, $user->password, [])
             return response()->json(
                 [
                     'message' => 'User not exist!',
