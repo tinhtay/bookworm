@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Review;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
@@ -190,10 +191,20 @@ class BookRepositories extends BaseRepository
 
     }
     
-    public function getFiltering(){
-        $categories = ['1','2'];
-        $arr = Arr::query($categories);
-       dd($arr);
-     
+    public function getFiltering(Request $request){
+       $book = Book::with(['category','author']);
+
+       if($request->id){
+        $book->where('book.book_id',$request->id);
+       } else {
+        if($request->category_id){
+            $book->where('book.category_id',$request->category_id); 
+        }else {
+            if($request->author_id){    //  author isset    in category_id 
+                $book->where('book.author_id',$request->author_id); }
+            }
+        }
+
+        return $book->get();
     }
 }

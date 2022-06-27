@@ -124,9 +124,9 @@ class BookController extends Controller
         return response($new_book->getFinalPrice());
     }
 
-    public function getfilter(){
+    public function getfilter(Request $request){
         $new_book = new BookRepositories();
-        return response($new_book->getFiltering());
+        return response($new_book->getFiltering($request));
     }
 
 

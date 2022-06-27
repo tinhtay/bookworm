@@ -19,7 +19,5 @@ class ReviewRepositories {
         ->get()->count();
     }
 
-    // public function getAvgStars($bookId){
-    //     return $this->query->selectRAw(DB::select(avg()))
-    // }
+    
 }
