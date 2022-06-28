@@ -38,6 +38,7 @@ class ReviewRepositories {
     public function logout(){
 
         // auth()->user()->tokens()->delete();
+        Auth::token()->delete();
         Auth::logout();
 
         return response()->json(
