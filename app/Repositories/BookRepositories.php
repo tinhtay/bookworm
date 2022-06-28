@@ -191,20 +191,51 @@ class BookRepositories extends BaseRepository
 
     }
     
-    public function getFiltering(Request $request){
-       $book = Book::with(['category','author']);
+    public function getAvgAll(){
+        return $this->query
+        ->join('review','review.book_id','=','book.id')
+        ->selectRaw('book.id, round(avg(review.rating_start),2) AS average_rate')
+        ->groupBy('book.id');
+    }
 
-       if($request->id){
-        $book->where('book.book_id',$request->id);
+    public function getFiltering($request){
+    //    $book = Book::with(['category','author']);
+
+       if($request->id != null){
+        return $this->query->where('book.id',$request->id)->get();
        } else {
-        if($request->category_id){
-            $book->where('book.category_id',$request->category_id); 
-        }else {
-            if($request->author_id){    //  author isset    in category_id 
-                $book->where('book.author_id',$request->author_id); }
-            }
-        }
+        if($request->category_id != null){
+            // $book->where('book.category_id',$request->category_id); 
+            return $this->query
+            ->join('category', 'category.id', '=', 'book.category_id')
+            ->where('book.author_id',$request->category_id)
+            ->get();
 
-        return $book->get();
+        }else {
+            if($request->author_id != null){    //  author isset    in category_id 
+                // $book->where('book.author_id',$request->author_id); 
+                return $this->query    
+                ->join('author', 'author.id', '=', 'book.author_id')
+                ->where('book.author_id',$request->author_id)
+                ->get();
+    
+            }
+                else {
+                    if($request->rate_star != null){
+                        $avg_all = $this->getAvgAll();
+                        return $this->query
+                        ->joinSub($avg_all, 'avg_all', function ($join) {
+                            $join->on('avg_all.id', '=', 'book.id');
+                        })
+                        ->selectRaw('book.*')
+                        ->where('avg_all.average_rate','=',$request->rate_star)
+                        ->orWhere('avg_all.average_rate','>',$request->rate_star)
+                        ->groupBy('book.id')
+                        ->paginate(5);
+                    }
+                }
+            }               
+            }
+        // return $book->get();
     }
 }
