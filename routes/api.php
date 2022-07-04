@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +45,16 @@ Route::controller(BookController::class)->group(function(){
     Route::get('getfinalprice', 'finalprice');
 
     Route::get('filtering' , 'getfilter');
+});
+
+
+Route::group([
+    'prefix' => 'Account'
+], function() {
+    Route::post('login',[AccountController::class,'login']);
+    Route::post('register',[AccountController::class,'register']);
+    Route::get('me',[AccountController::class,'me']);
+    Route::post('logout',[AccountController::class,'logout']);
 });
 
 
