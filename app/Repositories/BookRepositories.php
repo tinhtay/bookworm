@@ -22,10 +22,15 @@ class BookRepositories extends BaseRepository
 
     public function getById($id) //Lay thong tin 1 book / nhieu book
     {
+        $finalprice = $this->getFinalPrice();
         if($id != null){
             return $this->query->find($id)
             ->join('category', 'category.id', '=', 'book.category_id')
             ->join('author', 'author.id', '=', 'book.author_id')
+            ->joinSub($finalprice, 'finalprice', function ($join) {
+                $join->on('finalprice.fid', '=', 'book.id');
+            })
+            ->selectRaw('book.id, book.book_title, book.book_cover_photo, finalprice.final_price, book.book_price ')
             ->where('book.id',$id)
             ->get();
         }
@@ -47,7 +52,7 @@ class BookRepositories extends BaseRepository
         return $this->query->selectRaw('COUNT(review.id) as amount')
         ->join('review', 'review.book_id','=','book.id')
         ->where('book.id',$book_id)
-        ->get();
+        ;
     }
 
     public function create($data)
@@ -200,6 +205,7 @@ class BookRepositories extends BaseRepository
 
     public function getFiltering($request){
     //    $book = Book::with(['category','author']);
+        $finalprice = $this->getFinalPrice();
 
        if($request->id != null){
         return $this->query->where('book.id',$request->id)->get();
@@ -208,7 +214,12 @@ class BookRepositories extends BaseRepository
             // $book->where('book.category_id',$request->category_id); 
             return $this->query
             ->join('category', 'category.id', '=', 'book.category_id')
+            ->joinSub($finalprice, 'finalprice', function ($join) {
+                $join->on('finalprice.fid', '=', 'book.id');
+            })
+            ->selectRaw('book.id, book.book_title, book.book_cover_photo, finalprice.final_price, book.book_price ')
             ->where('book.author_id',$request->category_id)
+            ->groupBy('book.id','finalprice.final_price')
             ->get();
 
         }else {
@@ -216,7 +227,12 @@ class BookRepositories extends BaseRepository
                 // $book->where('book.author_id',$request->author_id); 
                 return $this->query    
                 ->join('author', 'author.id', '=', 'book.author_id')
+                ->joinSub($finalprice, 'finalprice', function ($join) {
+                    $join->on('finalprice.fid', '=', 'book.id');
+                })
+                ->selectRaw('book.id, book.book_title, book.book_cover_photo, finalprice.final_price, book.book_price ')
                 ->where('book.author_id',$request->author_id)
+                ->groupBy('book.id','finalprice.final_price')
                 ->get();
     
             }
@@ -227,10 +243,13 @@ class BookRepositories extends BaseRepository
                         ->joinSub($avg_all, 'avg_all', function ($join) {
                             $join->on('avg_all.id', '=', 'book.id');
                         })
-                        ->selectRaw('book.*')
+                        ->joinSub($finalprice, 'finalprice', function ($join) {
+                            $join->on('finalprice.fid', '=', 'book.id');
+                        })
+                        ->selectRaw('book.id, book.book_title, book.book_cover_photo, finalprice.final_price, book.book_price ')
                         ->where('avg_all.average_rate','=',$request->rate_star)
                         ->orWhere('avg_all.average_rate','>',$request->rate_star)
-                        ->groupBy('book.id')
+                        ->groupBy('book.id','finalprice.final_price')
                         ->paginate(5);
                     }
                 }
