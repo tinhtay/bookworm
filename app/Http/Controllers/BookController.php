@@ -128,6 +128,10 @@ class BookController extends Controller
         $new_book = new BookRepositories();
         return response($new_book->getFiltering($request));
     }
+    public function  getBookPagination(Request $request){
+        $new_book = new BookRepositories();
+        return response($new_book->getBookPagination($request));
+    }
 
 
 }
