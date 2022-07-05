@@ -32,9 +32,25 @@
 .home-page .carousel .card .card-body .book-title {
     font-weight: var(--bold);
 }
-
+.book-title{
+    text-align: center;
+    height: 50px;
+}
+.book-auhtor{
+    
+    height: 15px;
+}
+strike {
+    margin-right: 150px;
+}
 .home-page .book-list .bl-showing {
     color: var(--gray);
+}
+.btn-recommend{
+    margin-right: 20px;
+}
+.btn-ppl{
+    margin-left: 20px;
 }
 
 .home-page .book-list .bl-main-filter,
@@ -83,3 +99,23 @@
         height: 100%;
     }
 }  
+.title-shop-page{
+    padding-top: 30px;
+    
+}
+.title-shop-page p b{
+    font-size: 30px;
+}
+.title-shop-page hr{
+    margin-left: -1px;
+    width: 1200px;
+}
+.shop-page-list{
+    padding-top: 30px;
+}
+.dropdown-toggle{
+    padding: 5px 10px;
+}
+.btn-sort {
+    padding: 0 10px;
+}
