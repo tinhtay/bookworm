@@ -13,13 +13,13 @@ function Header(){
             <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                 <ul className="navbar-nav">
                     <li className="nav-item nav-justified">
-                        <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/home-page">Home <span className="sr-only"></span></a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/shop">Shop</a>
+                        <a className="nav-link" href="/shop-page">Shop</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/about">About</a>
+                        <a className="nav-link" href="/about-us">About</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/cart">Cart(0)</a>
