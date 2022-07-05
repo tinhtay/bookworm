@@ -16,13 +16,7 @@ class BookRepositories extends BaseRepository
 
     public function getById($id)
     {     
-        if($id){
-            return Category::query()->find($id);
-        }
-        else
-        {
-            return Category::all();
-        }
+       return $this->query->all();
     }
 
     
