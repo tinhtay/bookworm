@@ -93,10 +93,11 @@ class BookRepositories extends BaseRepository
     public function getTop10BooksDiscount(){
         $query = Book::query()
             ->join('discount','discount.book_id','=', 'book.id')
+            ->join('author','author.id','=', 'book.author_id')
             ->whereDate('discount_start_date','<=',today())
             ->whereDate('discount_end_date','>=',today())
             ->orWhereNull('discount_end_date')
-            ->selectRaw('book.*, (book_price - discount_price) as sub_price')
+            ->selectRaw('book.*, (book_price - discount_price) as sub_price, author.author_name')
             ->orderBy('sub_price','Desc')
             ->limit(10)->get();
 
@@ -112,8 +113,9 @@ class BookRepositories extends BaseRepository
         ->joinSub($finalprice, 'finalprice', function ($join) {
             $join->on('finalprice.fid', '=', 'book.id');
         })
-        ->selectRaw('book.id, book.book_title, book.book_cover_photo, count(review.id) as luotdanhgia, finalprice.final_price, book.book_price')
-        ->groupBy('book.id','finalprice.final_price')
+        ->join('author','author.id','=', 'book.author_id')
+        ->selectRaw('book.id, book.book_title, book.book_cover_photo, count(review.id) as luotdanhgia, finalprice.final_price, book.book_price, author.author_name')
+        ->groupBy('book.id','finalprice.final_price','author.author_name')
         ->orderByDesc('luotdanhgia')->orderBy('finalprice.final_price','asc')
         ->limit(8)
         ->get();
@@ -125,11 +127,12 @@ class BookRepositories extends BaseRepository
 
         return $this->query
         ->join('review','review.book_id','=','book.id')
+        ->join('author','author.id','=', 'book.author_id')
         ->joinSub($finalprice, 'finalprice', function ($join) {
             $join->on('finalprice.fid', '=', 'book.id');
         })
-        ->selectRaw('book.id, book.book_title, book.book_cover_photo, round(avg(review.rating_start),2) AS average_rate, finalprice.final_price, book.book_price ')
-        ->groupBy('book.id','finalprice.final_price')
+        ->selectRaw('book.id, book.book_title, book.book_cover_photo, round(avg(review.rating_start),2) AS average_rate, finalprice.final_price, book.book_price, author.author_name')
+        ->groupBy('book.id','finalprice.final_price','author.author_name')
         ->orderByDesc('average_rate')->orderBy('finalprice.final_price','asc')
         ->limit(8)
         ->get();
@@ -256,5 +259,30 @@ class BookRepositories extends BaseRepository
             }               
             }
         // return $book->get();
+    }
+
+    public function getBookPagination($request){
+        $finalprice = $this->getFinalPrice();
+        if($request->how != null){
+            return $this->query
+                ->join('category', 'category.id', '=', 'book.category_id')
+                ->join('author', 'author.id', '=', 'book.author_id')
+                ->joinSub($finalprice, 'finalprice', function ($join) {
+                    $join->on('finalprice.fid', '=', 'book.id');
+                })
+                ->selectRaw('book.id, book.book_title, book.book_cover_photo, finalprice.final_price, book.book_price ')
+                ->groupBy('book.id','finalprice.final_price')
+                ->paginate($request->how);
+            }else{
+                return $this->query
+                ->join('category', 'category.id', '=', 'book.category_id')
+                ->join('author', 'author.id', '=', 'book.author_id')
+                ->joinSub($finalprice, 'finalprice', function ($join) {
+                    $join->on('finalprice.fid', '=', 'book.id');
+                })
+                ->selectRaw('book.id, book.book_title, book.book_cover_photo, finalprice.final_price, book.book_price ')
+                ->groupBy('book.id','finalprice.final_price')
+                ->paginate(10);
+        }
     }
 }
