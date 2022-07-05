@@ -45,6 +45,8 @@ Route::controller(BookController::class)->group(function(){
     Route::get('getfinalprice', 'finalprice');
 
     Route::get('filtering' , 'getfilter');
+    Route::get('allbook', 'getBookPagination');
+    
 });
 
 
