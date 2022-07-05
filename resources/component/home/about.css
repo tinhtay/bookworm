@@ -1,0 +1,26 @@
+div .about p{
+    padding-left:140px ;
+}
+hr{
+    width: 70%;
+    margin-left:200px ;
+}
+h3{
+    text-align: center;
+}
+div .text{
+    padding-left: 200px;
+    padding-right: 300px;
+}
+div .grid {
+    padding-right: 250px;
+}
+.grid-container {
+    padding-left: 340px;
+    display: grid;
+    grid-template-columns: 40% 60% ;
+  }
+.grid-container .grid-item p{
+    padding-left: 0px;
+    padding-right: 50px;
+}
