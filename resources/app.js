@@ -1,8 +1,11 @@
 import React from 'react';
 import Home from './component/home/HomePage';
+import DataTest from './component/home/testdata';
 import Header from './component/header/Header';
 import Footer from './component/header/Footer';
-import {Routes, Route} from 'react-router-dom'
+import About from './component/home/about';
+import ShopPage from './component/home/ShopPage';
+import {Routes, Route} from 'react-router-dom';
 
 function App() {
     
@@ -11,6 +14,8 @@ function App() {
             <Header/>
             <Routes>
                 <Route path='/home-page' element={<Home/>}/>
+                <Route path="/about-us" element={<About />}></Route>
+                <Route path="/shop-page" element={<ShopPage/>}></Route>
             </Routes>
             <Footer/>
         </>
