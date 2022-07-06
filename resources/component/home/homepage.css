@@ -2,7 +2,10 @@
 .home-page {
     margin: 1rem 0;
 }
-
+a {
+    text-decoration: none;
+    color: darkblue;
+}
 .custom-link,
 .custom-link:hover {
     display: inline-block;
@@ -37,7 +40,16 @@
     height: 50px;
 }
 .book-auhtor{
-    
+    height: 15px;
+}
+#book-title{
+    text-align: center;
+    height: 90px;
+}
+.card img{
+    height: 300px;
+}
+#book-auhtor{
     height: 15px;
 }
 strike {
@@ -117,5 +129,14 @@ strike {
     padding: 5px 10px;
 }
 .btn-sort {
+    width: 80px;
     padding: 0 10px;
+    margin-right: 10px;
+}
+.row-book-list{
+    margin-top: 20px;
+}
+
+.card-body{
+    margin: 20px 5px;
 }
