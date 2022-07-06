@@ -27,3 +27,7 @@ Route::get('/data-test', function () {
 Route::get('/shop-page', function () {
     return view('welcome');
 });
+
+Route::get('/product-page', function () {
+    return view('welcome');
+});
