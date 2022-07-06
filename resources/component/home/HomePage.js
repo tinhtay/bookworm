@@ -67,7 +67,7 @@ class Home extends React.Component {
                                 <img className="card-img-top img-fluid" src={bookCoverData[book.book_cover_photo]}
                                  alt={book.book_cover_photo} />
                                 <div className="card-body">
-                                    <p className="book-title font-18px">{book.book_title}</p>
+                                    <p className="book-title font-18px"><a href="#">{book.book_title}</a></p>
                                     <p className="book-author font-10px"><i>{book.author_name}</i></p>
                                 </div>
                                 <div className="card-footer text-muted font-14px"><strike>{book.book_price}</strike> <b>${book.sub_price}</b></div>
@@ -111,7 +111,7 @@ class Home extends React.Component {
                                                 <div className="card">
                                                     <img className="card-img-top img-fluid" src={bookCoverData[book1.book_cover_photo]} alt={book1.book_cover_photo} />
                                                     <div className="card-body">
-                                                        <p className="book-title font-18px ">{book1.book_title}</p>
+                                                        <p className="book-title font-18px "><a href="#">{book1.book_title}</a></p>
                                                         <p className="book-author font-10px"><i>{book1.author_name}</i></p>
                                                     </div>
                                                     <div className="card-footer text-muted font-14px"><strike></strike> <b>${book1.final_price}</b></div>
@@ -138,7 +138,7 @@ class Home extends React.Component {
                                                 <div className="card">
                                                     <img className="card-img-top img-fluid" src={bookCoverData[book2.book_cover_photo]} alt={book2.book_cover_photo} />
                                                     <div className="card-body">
-                                                        <p className="book-title font-18px ">{book2.book_title}</p>
+                                                        <p className="book-title font-18px "><a href="#">{book2.book_title}</a></p>
                                                         <p className="book-author font-10px"><i>{book2.author_name}</i></p>
                                                     </div>
                                                     <div className="card-footer text-muted font-14px"><strike></strike> <b>${book2.final_price}</b></div>
