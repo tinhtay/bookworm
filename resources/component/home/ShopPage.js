@@ -1,6 +1,6 @@
 import "./homepage.css";
 import { bookCoverData } from "../data/bookCoverData";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import axios from 'axios';
 
@@ -11,23 +11,26 @@ class ShopPage extends React.Component {
     
         this.state = {
             allbook:[],
+            link:[]
         
         };
     }
     async componentDidMount(){
         await axios.get('http://127.0.0.1:8000/api/allbook').then(result =>{
             const allbook = result.data.data;
+            const link = result.data.links;
             this.setState({allbook:allbook});
+            console.log(result.data);
+            this.setState({link:link});
+            console.log(result.link);
            
         })
         
     }
-    
-    // async componentDidMount(){
-    //     axios.get('http://127.0.0.1:8000/api/allbook')
-    //     .then(result => {console.log(result.data);})
-    //     }
+      
+ 
     render() {
+     
         return (
             <section> 
                 <div className="container">
@@ -111,28 +114,45 @@ class ShopPage extends React.Component {
                                     </div>
                                    </div>
                                 </div>
-                                <div className="col-md-12"> hello
-                                <div className="row">
-                                {
-                                        this.state.allbook.map(book1 => {
-                                        return (
-                                        <div className="col-lg-3 col-md-4 col-sm-4 mb-4" key={book1}>
-                                            <div >
-                                                <img  src={bookCoverData[book1.book_cover_photo]} alt={book1.book_cover_photo} />
-                                                <div >
-                                                    <p className="book-title font-18px ">{book1.book_title}</p>
-                                                    <p className="book-author font-10px"><i>{book1.author_name}</i></p>
+                                <div className="col-md-12"> 
+                                    <div className="card card-body">
+                                    <div className="row row-book-list" id="mainRow">
+                                        {
+                                            this.state.allbook.map(book1 => {
+                                            return (
+                                            <div className="col-lg-3 col-md-4 col-sm-4 mb-4" key={book1}>
+                                                <div className="card">
+                                                    <img  src={bookCoverData[book1.book_cover_photo]} alt={book1.book_cover_photo} />
+                                                    <div className="card-body" >
+                                                        <p className="book-title font-18px" id="book-title"><b><a href="#">{book1.book_title}</a></b></p>
+                                                        <p className="book-author font-10px" id="book-author"><i>{book1.author_name}</i></p>
+                                                    </div>
+                                                    <div className="card-footer text-muted font-14px" ><strike></strike> <b>${book1.final_price}</b></div>
                                                 </div>
-                                                <div ><strike></strike> <b>${book1.final_price}</b></div>
+                                            </div>
+                                            )
+                                            })
+                                        }
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination">
+                                                    {
+                                                        this.state.link.map( linked => { 
+                                                            if(linked.label === '&laquo; Previous') {
+                                                                return  <li class="page-item"><a  class="page-link" href={linked.url}>Previous</a></li> 
+                                                            } else { if(linked.label === 'Next &raquo;'){ return  <li class="page-item"><a class="page-link" href={linked.url}>Next</a></li> }
+                                                            else{return <li class="page-item"><a class="page-link" href={linked.url}>{linked.label}</a></li> }
+                                                            }}
+                                                        )
+                                                    }
+                                                    </ul>
+                                                </nav>
                                             </div>
                                         </div>
-                                        )
-                                        })
-                                    }
-                                     
-                                </div>
-                                     
-                                
+                                       
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
