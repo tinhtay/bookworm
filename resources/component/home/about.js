@@ -5,11 +5,11 @@ function About() {
             <div className='about'>
                 <p><b>About Us</b></p>
                 <hr></hr>
-                <h3><b>Welcom to BOOKWORM</b></h3>
+                <h3><i><b>Welcom to BOOKWORM</b></i></h3>
                 <br></br>
             </div>
 
-            <div className='text'>
+            <div className=' text-center'>
                 <p>
                     Bookworm is an independent New York bookstore and language school with locations in 
                     Manhattan and Brooklyn. We specialize in travel books and language classes.

@@ -1,5 +1,8 @@
 div .about p{
-    padding-left:140px ;
+    padding-left:200px ;
+}
+.about {
+    margin-top: 20px;
 }
 hr{
     width: 70%;
@@ -8,10 +11,7 @@ hr{
 h3{
     text-align: center;
 }
-div .text{
-    padding-left: 200px;
-    padding-right: 300px;
-}
+
 div .grid {
     padding-right: 250px;
 }
