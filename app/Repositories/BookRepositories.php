@@ -243,10 +243,10 @@ class BookRepositories extends BaseRepository
                 ->joinSub($finalprice, 'finalprice', function ($join) {
                     $join->on('finalprice.fid', '=', 'book.id');
                 })
-                ->selectRaw('book.id, book.book_title, book.book_cover_photo, finalprice.final_price, book.book_price ')
+                ->selectRaw('book.id, book.book_title, book.book_cover_photo, finalprice.final_price, book.book_price,author.author_name ')
                 ->where('book.author_id',$request->author_id)
-                ->groupBy('book.id','finalprice.final_price')
-                ->get();
+                ->groupBy('book.id','finalprice.final_price','author.author_name')
+                ->paginate(12);
     
             }
                 else {
@@ -263,7 +263,7 @@ class BookRepositories extends BaseRepository
                         ->where('avg_all.average_rate','=',$request->rate_star)
                         ->orWhere('avg_all.average_rate','>',$request->rate_star)
                         ->groupBy('book.id','finalprice.final_price')
-                        ->paginate(5);
+                        ->paginate(12);
                     }
                 }
             }               
@@ -292,7 +292,7 @@ class BookRepositories extends BaseRepository
                 })
                 ->selectRaw('book.id, book.book_title, book.book_cover_photo, finalprice.final_price, book.book_price,author.author_name ')
                 ->groupBy('book.id','finalprice.final_price','author.author_name')
-                ->paginate(10);
+                ->paginate(12);
         }
     }
 }
