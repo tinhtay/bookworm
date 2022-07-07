@@ -67,7 +67,7 @@ class Home extends React.Component {
                                 <img className="card-img-top img-fluid" src={bookCoverData[book.book_cover_photo]}
                                  alt={book.book_cover_photo} />
                                 <div className="card-body">
-                                    <p className="book-title font-18px"><a href="#">{book.book_title}</a></p>
+                                    <p className="book-title font-18px"><a href={`product-page/${book.id}`}>{book.book_title}</a></p>
                                     <p className="book-author font-10px"><i>{book.author_name}</i></p>
                                 </div>
                                 <div className="card-footer text-muted font-14px"><strike>{book.book_price}</strike> <b>${book.sub_price}</b></div>
@@ -78,26 +78,21 @@ class Home extends React.Component {
                 <div className="book-list">
                     <div className="text-center">
                         <p className="section-title font-20px mb-3">Featured Books</p>
-                        <div className="mb-4">
-                            {/* <Button color="secondary">
-                                Recommended
-                            </Button>
-                            <a className="custom-link">Popular</a> */}
-                            <p>
-                            <a className="btn btn-secondary btn-recommend" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample">
-                            Recommend 
-                            </a> |
-                            <a className="btn btn-default btn-ppl" data-bs-toggle="collapse" href="#collapseExample2" role="button"  aria-expanded="false" aria-controls="collapseExample2">
-                            Popular
-                            </a>
-                            </p>
+                        <div className="mb-4 btn-ul">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#recommend" type="button" role="tab" aria-controls="recommend" aria-selected="true">Recommend</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#popular" type="button" role="tab" aria-controls="popular" aria-selected="false">Popular</button>
+                            </li>
+                        </ul>
                         </div>
                     </div>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="collapse" id="collapseExample">
-                                    <div className="card card-body">
+                    
+                    <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="recommend" role="tabpanel" aria-labelledby="home-tab">
+                        <div className="card card-body">
                                         <div className="text-center">
                                             <div className="mb-4">
                                                     All books recommend
@@ -111,7 +106,7 @@ class Home extends React.Component {
                                                 <div className="card">
                                                     <img className="card-img-top img-fluid" src={bookCoverData[book1.book_cover_photo]} alt={book1.book_cover_photo} />
                                                     <div className="card-body">
-                                                        <p className="book-title font-18px "><a href="#">{book1.book_title}</a></p>
+                                                        <p className="book-title font-18px "><a href={`product-page/${book1.id}`}>{book1.book_title}</a></p>
                                                         <p className="book-author font-10px"><i>{book1.author_name}</i></p>
                                                     </div>
                                                     <div className="card-footer text-muted font-14px"><strike></strike> <b>${book1.final_price}</b></div>
@@ -121,10 +116,10 @@ class Home extends React.Component {
                                             })
                                             }
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="collapse" id="collapseExample2">
-                                    <div className="card card-body">
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="popular" role="tabpanel" aria-labelledby="profile-tab">
+                        <div className="card card-body">
                                         <div className="text-center">
                                             <div className="mb-4">
                                               All books most popular
@@ -138,7 +133,7 @@ class Home extends React.Component {
                                                 <div className="card">
                                                     <img className="card-img-top img-fluid" src={bookCoverData[book2.book_cover_photo]} alt={book2.book_cover_photo} />
                                                     <div className="card-body">
-                                                        <p className="book-title font-18px "><a href="#">{book2.book_title}</a></p>
+                                                        <p className="book-title font-18px "><a href={`product-page/${book2.id}`}>{book2.book_title}</a></p>
                                                         <p className="book-author font-10px"><i>{book2.author_name}</i></p>
                                                     </div>
                                                     <div className="card-footer text-muted font-14px"><strike></strike> <b>${book2.final_price}</b></div>
@@ -148,30 +143,9 @@ class Home extends React.Component {
                                             })
                                             }
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                   
-                    {/* <div id="mainRow" className="row">
-                        {
-                        this.state.bookrecommend.map(book1 => {
-                        return (
-                        <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={book1}>
-                            <div className="card">
-                                <img className="card-img-top img-fluid" src={bookCoverData[book1.book_cover_photo]} alt={book1.book_cover_photo} />
-                                <div className="card-body">
-                                    <p className="book-title font-18px ">{book1.book_title}</p>
-                                    <p className="book-author font-10px"><i>{book1.author_name}</i></p>
-                                </div>
-                                <div className="card-footer text-muted font-14px"><strike></strike> <b>{book1.final_price}</b></div>
-                            </div>
-                        </div>
-                        )
-                        })
-                        }
-                    </div> */}
+                    </div>
                     
                 </div>
             </div>
