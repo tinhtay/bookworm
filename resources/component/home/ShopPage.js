@@ -1,42 +1,48 @@
 import "./homepage.css";
 import { bookCoverData } from "../data/bookCoverData";
 import React, { useState, useEffect } from "react";
-
+import Category from './categoryFilter';
+import Author from './authorFilter';
 import axios from 'axios';
 
-class ShopPage extends React.Component {
+export default function ShopPage() {
     
-    constructor(props){
-        super(props);
-    
-        this.state = {
-            allbook:[],
-            link:[]
-        
-        };
+   
+    const [allbook, setAllBook] = useState([]);
+    const [link, setLinks] = useState([]);
+    const [url, setUrl] = useState('http://127.0.0.1:8000/api/allbook');
+
+    // const url = ' http://localhost:8000/api/filtering?id=' + id;
+
+   const handleClick = (urlPaginate) => {
+       setUrl(urlPaginate);
     }
-    async componentDidMount(){
-        await axios.get('http://127.0.0.1:8000/api/allbook').then(result =>{
-            const allbook = result.data.data;
-            const link = result.data.links;
-            this.setState({allbook:allbook});
-            console.log(result.data);
-            this.setState({link:link});
-            console.log(result.link);
-           
-        })
-        
+    const handleClickFilter = (author_id) => {
+        const urlAuthor = 'http://localhost:8000/api/filtering?author_id=' + author_id;
+        setUrl(urlAuthor);
     }
-      
+
+    useEffect(() => {
+        axios
+            .get(url)
+            .then((res) => {
+                setAllBook(res.data.data);
+                setLinks(res.data.links);
+            })
+            .catch((error) => console.log(error));
+    }, [url]);
+
+      console.log(allbook);
+      console.log(link);
  
-    render() {
+    // render() {
      
-        return (
+        return ([
             <section> 
                 <div className="container">
                     <div className="row">
                             <div className="col-md-12 title-shop-page">
-                                <p> <b>Books</b> (filter by category #1)</p>
+                                <p> <b>Books</b></p>
                                 <hr/> 
                             </div>
                     </div>
@@ -51,9 +57,7 @@ class ShopPage extends React.Component {
                                     <table className="table">
                                         <thead><th>Category</th></thead>
                                         <tbody>
-                                            <tr><td>Caterogy name</td></tr>
-                                            <tr><td>Caterogy #2</td></tr>
-                                            <tr><td>Caterogy #3</td></tr>
+                                            <Category/>
                                         </tbody>
                                     </table>
                                 </div>
@@ -61,9 +65,7 @@ class ShopPage extends React.Component {
                                     <table className="table">
                                         <thead><th>Author</th></thead>
                                         <tbody>
-                                            <tr><td>Author name</td></tr>
-                                            <tr><td>Author #2</td></tr>
-                                            <tr><td>Author #3</td></tr>
+                                            <Author/>
                                         </tbody>
                                     </table>
                                 </div>
@@ -84,7 +86,7 @@ class ShopPage extends React.Component {
                         <div className="col-md-10">
                             <div className="row">
                                 <div className="col-md-3">
-                                    showing 1-12 of 126 books
+                                    showing all books
                                 </div>
                                 <div className="col-md-9">
                                    <div className="row">
@@ -118,31 +120,33 @@ class ShopPage extends React.Component {
                                     <div className="card card-body">
                                     <div className="row row-book-list" id="mainRow">
                                         {
-                                            this.state.allbook.map(book1 => {
+                                            allbook.map(book1 => {
                                             return (
+                                                <>
                                             <div className="col-lg-3 col-md-4 col-sm-4 mb-4" key={book1}>
                                                 <div className="card">
                                                     <img  src={bookCoverData[book1.book_cover_photo]} alt={book1.book_cover_photo} />
                                                     <div className="card-body" >
-                                                        <p className="book-title font-18px" id="book-title"><b><a href="#">{book1.book_title}</a></b></p>
+                                                        <p className="book-title font-18px" id="book-title"><b><a href={`product-page/${book1.id}`}>{book1.book_title}</a></b></p>
                                                         <p className="book-author font-10px" id="book-author"><i>{book1.author_name}</i></p>
                                                     </div>
                                                     <div className="card-footer text-muted font-14px" ><strike></strike> <b>${book1.final_price}</b></div>
                                                 </div>
                                             </div>
+                                            </>
                                             )
                                             })
                                         }
-                                        <div className="row">
-                                            <div className="col-md-12">
+                                        <div className="row pagination_tab">
+                                            <div className="col-md-12 ">
                                                 <nav aria-label="Page navigation example">
                                                     <ul class="pagination">
                                                     {
-                                                        this.state.link.map( linked => { 
+                                                        link.map( linked => { 
                                                             if(linked.label === '&laquo; Previous') {
-                                                                return  <li class="page-item"><a  class="page-link" href={linked.url}>Previous</a></li> 
-                                                            } else { if(linked.label === 'Next &raquo;'){ return  <li class="page-item"><a class="page-link" href={linked.url}>Next</a></li> }
-                                                            else{return <li class="page-item"><a class="page-link" href={linked.url}>{linked.label}</a></li> }
+                                                                return  <li class="page-item"><a  class="page-link" onClick={() => handleClick(linked.url)} href="#">Previous</a></li> 
+                                                            } else { if(linked.label === 'Next &raquo;'){ return  <li class="page-item"><a class="page-link"  onClick={() =>handleClick(linked.url)} href="#">Next</a></li> }
+                                                            else{return <li class="page-item"><a class="page-link"  onClick={() => handleClick(linked.url)} href="#">{linked.label}</a></li> }
                                                             }}
                                                         )
                                                     }
@@ -150,7 +154,6 @@ class ShopPage extends React.Component {
                                                 </nav>
                                             </div>
                                         </div>
-                                       
                                     </div>
                                     </div>
                                 </div>
@@ -160,8 +163,7 @@ class ShopPage extends React.Component {
                 </div>
             </section>
 
-        );
-    }
+                                                 ] );
+    // }
 }
 
-export default ShopPage;  
