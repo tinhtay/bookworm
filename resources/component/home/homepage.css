@@ -140,3 +140,18 @@ strike {
 .card-body{
     margin: 20px 5px;
 }
+.btn-ul ul li {
+    margin: 0 auto ;
+    color: black;
+
+}
+.btn-ul #home-tab {
+    margin: 0px 400px;
+}
+.btn-ul #profile-tab {
+    margin-left: -580px;
+}
+.pagination_tab {
+    margin-top: 30px;
+    margin-left: 200px;
+}
