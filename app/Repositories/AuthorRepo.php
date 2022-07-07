@@ -7,11 +7,11 @@ use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
-class CategoriesRepositories extends BaseRepository
+class AuthorRepo extends BaseRepository
 {
     public function __construct()
     {
-        $this->query = Category::query();
+        $this->query = Author::query();
     }
 
     public function getById($id)

@@ -3,6 +3,8 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AuthorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +27,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('book/{bookid}/review/{rwid}', [BookController::class,'book_review']);
-Route::get('/Categories', [BookController::class,'book_type']);
+Route::get('/allcategory', [CategoryController::class,'index']);
+Route::get('/allauthor', [AuthorController::class,'index']);
+
 Route::get('/Authors', [BookController::class,'book_author']);
 
 Route::apiResource('/books', BookController::class);
