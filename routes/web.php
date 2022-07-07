@@ -13,21 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home-page', function () {
-    return view('home_page');
-});
-Route::get('/about-us', function () {
-    return view('home_page');
-});
+// Route::get('/home-page', function () {
+//     return view('home_page');
+// });
+// Route::get('/about-us', function () {
+//     return view('home_page');
+// });
 
-Route::get('/data-test', function () {
-    return view('welcome');
-});
+// Route::get('/data-test', function () {
+//     return view('welcome');
+// });
 
-Route::get('/shop-page', function () {
-    return view('welcome');
-});
+// Route::get('/shop-page', function () {
+//     return view('welcome');
+// });
 
-Route::get('/product-page', function () {
+// Route::get('/product-page/{?id}', function () {
+//     return view('welcome');
+// });
+
+Route::get('{path?}', function () {
     return view('welcome');
-});
+})->where('path', '[a-zA-Z0-9-/]+');
