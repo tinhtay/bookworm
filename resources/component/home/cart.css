@@ -1,0 +1,39 @@
+.quantity{
+    padding: 5px 5px;
+}
+.cart{
+    width: 75%;
+    padding-left: 10px;
+    padding-top: 20px;
+}
+.carttotal{
+    width: 100px;
+}
+.column2{
+    padding-left: 100px;
+    margin-left: -100px;
+}
+.column1{
+    padding-left: 100px;
+    margin-right: 300px;
+    flex: 10%;
+}
+.cart2{
+    width: 20%;
+    margin-left: 10px;
+    padding-top: 20px;
+}
+.btn{
+    margin-left: 10px;
+}
+.App{
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+}
+.quantity-modifier button {
+    width: 1rem;
+}
+.quantity-display{
+    font-size: 1rem;
+}
