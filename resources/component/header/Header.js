@@ -1,7 +1,11 @@
 import logo from '../../assets/bookcover/logo-bw.jpg'
 import "./logo.css";
+import React, {useState} from 'react';
 
 function Header(){
+
+    const total_cart = localStorage.getItem("total_cart");
+
     return(
         <>
           <nav className="navbar navbar-expand-lg bg-dark navbar-dark sticky-top px-5"><img src={logo} className="logo" alt="64x64"/>
@@ -22,7 +26,7 @@ function Header(){
                         <a className="nav-link" href="/about-us">About</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/cart">Cart(0)</a>
+                        <a className="nav-link" href="/cart-page">Cart({JSON.parse(total_cart)})</a>
                     </li>
                     <li className="nav-item">
                         {/* <a className="nav-link" href="/login-user">Sign in</a> */}
